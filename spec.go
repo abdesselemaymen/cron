@@ -107,7 +107,9 @@ WRAP:
 		t = t.AddDate(0, 0, 1)
 
 		if t.Day() == 1 {
-			goto WRAP
+			t = t.AddDate(0, 0, -1)
+			s.Dom = s.Dom - 1
+			// goto WRAP
 		}
 	}
 
