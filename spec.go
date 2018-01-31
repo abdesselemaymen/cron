@@ -1,6 +1,9 @@
 package cron
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 // SpecSchedule specifies a duty cycle (to the second granularity), based on a
 // traditional crontab specification. It is computed initially and stored as bit sets.
@@ -104,15 +107,16 @@ WRAP:
 			added = true
 			t = time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, s.Location)
 		}
-		t = t.AddDate(0, 0, 1)
+		fmt.Println(t, s.Dom, s.Dow, s)
 		if t.Day() == 1 {
-			if s.Dow != 1 && s.Dow != 2 && s.Dow != 4 && s.Dow != 8 && s.Dow != 16 && s.Dow != 32 && s.Dow != 64 {
+			if s.Dom > 536870910 && s.Dom <= 2147483648 {
 				t = t.AddDate(0, 0, -1)
-				s.Dom = s.Dom - 1
+				s.Dom = s.Dom / 2
 			} else {
 				goto WRAP
 			}
 		}
+
 	}
 
 	for 1<<uint(t.Hour())&s.Hour == 0 {
