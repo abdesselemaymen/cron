@@ -105,11 +105,13 @@ WRAP:
 			t = time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, s.Location)
 		}
 		t = t.AddDate(0, 0, 1)
-
 		if t.Day() == 1 {
-			t = t.AddDate(0, 0, -1)
-			s.Dom = s.Dom - 1
-			// goto WRAP
+			if s.Dow != 1 && s.Dow != 2 && s.Dow != 4 && s.Dow != 8 && s.Dow != 16 && s.Dow != 32 && s.Dow != 64 {
+				t = t.AddDate(0, 0, -1)
+				s.Dom = s.Dom - 1
+			} else {
+				goto WRAP
+			}
 		}
 	}
 
