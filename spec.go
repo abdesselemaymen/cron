@@ -107,6 +107,7 @@ WRAP:
 			added = true
 			t = time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, s.Location)
 		}
+		t = t.AddDate(0, 0, 1)
 		fmt.Println(t, s.Dom, s.Dow, s)
 		if t.Day() == 1 {
 			if s.Dom > 536870910 && s.Dom <= 2147483648 {
